@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo Blog</title>
+  
+  <subtitle>命数如织，当为磐石</subtitle>
+  <link href="https://danbuliduo.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://danbuliduo.github.io/"/>
+  <updated>2023-10-16T06:26:37.012Z</updated>
+  <id>https://danbuliduo.github.io/</id>
+  
+  <author>
+    <name>蛋布利多</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://danbuliduo.github.io/2023/10/16/home/"/>
+    <id>https://danbuliduo.github.io/2023/10/16/home/</id>
+    <published>2023-10-16T06:26:34.235Z</published>
+    <updated>2023-10-16T06:26:37.012Z</updated>
+    
+    <content type="html"><![CDATA[<p>sdfs</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;sdfs&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>起点</title>
+    <link href="https://danbuliduo.github.io/2023/10/16/start/"/>
+    <id>https://danbuliduo.github.io/2023/10/16/start/</id>
+    <published>2023-10-16T04:22:55.727Z</published>
+    <updated>2023-10-16T06:43:38.831Z</updated>
+    
+    <content type="html"><![CDATA[<p>如果你发现了此篇博客，这里就是我的起点。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;如果你发现了此篇博客，这里就是我的起点。&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
