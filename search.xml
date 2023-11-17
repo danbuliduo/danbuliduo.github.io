@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>礼物</title>
-    <url>/2023/10/17/gift/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="1f8c59f0555ec4023dfb375065c03c46fbb3464630fdc9f40c1fb4f5b473863c">3e83d50de96ca2207a1aba1932db313a1b91373322dd25f3c27f364062631a34c8f40da60edcd32558c4f32607e8be22a081300a2d482a4da94066949fe4b6216c536697f20520762c35504531b69c84e884bd08493b15cee4c14a15ca63e2bf1648be51fa7e78ebdbdd591147d61399525b90900414ea06cf454dfd501d0f8a18b0e74a31850e31238d67ba29642a733154ef5e240872a66dd3c62c636e47c0d0eb4d9de7c734c17e39734dd4437eccf4fe674a664239ed6dc2dd61700760cd06941e239c43183123e087431f7d0abd697e900fe24485dd98a954ed4add69381cda0c786971e48e11615e8cff3c7aa1c8329769ac6df1597f3e2b4f76a2e680e8c29fa6183bcf6a8ea25006af0c9446df4d78698fa2909fd8db51ab7f428bf6314b0c415ae62db222a2edff49f4d28930e5120a1af2d4c7bd7135503cda50361e1c053fde83f081d63c2ac06cdc374fb043e5f994d51d0deac67e8432aac7caa1d88689f9e7961c55e77c03ab600e8d7844b8d7991126e8feddae0a1352c7927ef6a1c246ade75023a443f4a02e1e689e15260a13d39975541ea36066ae2a3d3ef9b700c082b691ccad34704659dd603a91c43265abd6d49858bb7cf69ffbe6</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入访问码</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>友人帐</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Telegraf + InfluxDB2 + Grafana 搭建可监控环境</title>
     <url>/2023/11/17/2023-11-17-I/</url>
     <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>笔者将搭建一个 Telegraf + Influxdb + Grafana 可监控环境，通过这套工具组合，可以构建实时监控系统，实时分析和展示各种指标和数据，帮助用户更好地理解和管理系统的运行状态。</p>
@@ -58,7 +39,7 @@
  </div>
   <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -d --name=grafana -p <span class="number">3000</span>:<span class="number">3000</span> grafana/grafana-enterprise:<span class="number">10</span>.<span class="number">2</span>.<span class="number">1</span>-ubuntu</span><br></pre></td></tr></table></figure></li>
 <li><p>为Grafana配置并进行初步测试：<br>打开<a href="http://127.0.0.1:3000/">http://127.0.0.1:3000</a> 进入Grafana面板并选择 连接-&gt;数据源-&gt;添加数据源-&gt;Influxdb 配置一个数据源</p>
-<div align=center>
+  <div align=center>
     <img src=/images/2023.11.17/201957.png />
   </div>
   配置信息及细节见下图
@@ -129,6 +110,25 @@
         <tag>Influxdb</tag>
         <tag>Grafana</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>礼物</title>
+    <url>/2023/10/17/gift/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="b3ab1b57b437cf7daad039bf110120e989cce64adb555752407e0f2412853e9d">3e83d50de96ca2207a1aba1932db313a1b91373322dd25f3c27f364062631a34c8f40da60edcd32558c4f32607e8be22a081300a2d482a4da94066949fe4b6216c536697f20520762c35504531b69c84e884bd08493b15cee4c14a15ca63e2bf1648be51fa7e78ebdbdd591147d61399525b90900414ea06cf454dfd501d0f8a18b0e74a31850e31238d67ba29642a733154ef5e240872a66dd3c62c636e47c0d0eb4d9de7c734c17e39734dd4437eccf4fe674a664239ed6dc2dd61700760cd06941e239c43183123e087431f7d0abd697e900fe24485dd98a954ed4add69381cda0c786971e48e11615e8cff3c7aa1c8329769ac6df1597f3e2b4f76a2e680e8c29fa6183bcf6a8ea25006af0c9446df4d78698fa2909fd8db51ab7f428bf6314b0c415ae62db222a2edff49f4d28930e5120a1af2d4c7bd7135503cda50361e1c053fde83f081d63c2ac06cdc374fb043e5f994d51d0deac67e8432aac7ca027580bcfb7fd562fb6fd539cb61987a5e665d58bd85a9b2cead9e1dc259bd68e2fb0010131830acca50589a5c665942c89d9610eeb8201b191366dee13ca1ffd3baa8342879304bab75c00e491b2e8ea5302d227de1ef19d873e1c88d25a005</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入访问码</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>友人帐</category>
+      </categories>
   </entry>
   <entry>
     <title>Blog 启动！</title>
