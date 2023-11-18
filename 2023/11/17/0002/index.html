@@ -25,12 +25,12 @@
     <meta name="description" content="一、前言笔者将搭建一个 Telegraf + Influxdb + Grafana 可监控环境，通过这套工具组合，可以构建实时监控系统，实时分析和展示各种指标和数据，帮助用户更好地理解和管理系统的运行状态。  Telegraf 收集数据：开源的服务器代理程序，用于收集、处理和发送指标数据。 Influxdb 存储数据：开源的时序数据库，专门用于存储和查询时间相关的数据，旨在为监控、分析和可视化应用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Telegraf + InfluxDB2 + Grafana 搭建可监控环境">
-<meta property="og:url" content="https://danbuliduo.github.io/2023/11/17/2023-11-17-I/index.html">
+<meta property="og:url" content="https://danbuliduo.github.io/2023/11/17/0002/index.html">
 <meta property="og:site_name" content="Ming Blog">
 <meta property="og:description" content="一、前言笔者将搭建一个 Telegraf + Influxdb + Grafana 可监控环境，通过这套工具组合，可以构建实时监控系统，实时分析和展示各种指标和数据，帮助用户更好地理解和管理系统的运行状态。  Telegraf 收集数据：开源的服务器代理程序，用于收集、处理和发送指标数据。 Influxdb 存储数据：开源的时序数据库，专门用于存储和查询时间相关的数据，旨在为监控、分析和可视化应用">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-17T06:09:50.000Z">
-<meta property="article:modified_time" content="2023-11-17T17:35:20.894Z">
+<meta property="article:modified_time" content="2023-11-18T02:29:31.575Z">
 <meta property="article:author" content="蛋布利多">
 <meta property="article:tag" content="树莓派">
 <meta property="article:tag" content="Ubuntu">
@@ -41,11 +41,11 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://danbuliduo.github.io/2023/11/17/2023-11-17-I/">
+<link rel="canonical" href="https://danbuliduo.github.io/2023/11/17/0002/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://danbuliduo.github.io/2023/11/17/2023-11-17-I/","path":"2023/11/17/2023-11-17-I/","title":"Telegraf + InfluxDB2 + Grafana 搭建可监控环境"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://danbuliduo.github.io/2023/11/17/0002/","path":"2023/11/17/0002/","title":"Telegraf + InfluxDB2 + Grafana 搭建可监控环境"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Telegraf + InfluxDB2 + Grafana 搭建可监控环境 | Ming Blog</title>
@@ -164,7 +164,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -210,7 +210,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://danbuliduo.github.io/2023/11/17/2023-11-17-I/">
+    <link itemprop="mainEntityOfPage" href="https://danbuliduo.github.io/2023/11/17/0002/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -246,7 +246,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-18 01:35:20" itemprop="dateModified" datetime="2023-11-18T01:35:20+08:00">2023-11-18</time>
+      <time title="修改时间：2023-11-18 10:29:31" itemprop="dateModified" datetime="2023-11-18T10:29:31+08:00">2023-11-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -347,7 +347,7 @@
   <div align=center>
     <img src=/images/2023.11.17/213004.png />
   </div>
-  笔者推测是模板中的Flux语句与安装的Influxdb版本有略微的差别，于是笔者重写了模板中的Flux语句，最后我们可以看到Infludb Bucket中的数据成功在Grafana中显示出来。
+  笔者推测是模板中的Flux语句与安装的Influxdb版本有略微的差别，于是笔者重写了模板中的Flux语句，最后我们可以看到Influxdb Bucket中的数据成功在Grafana中显示出来。
   <div align=center>
     <img src=/images/2023.11.17/211018.png />
   </div>
@@ -365,7 +365,7 @@
 
 <p>如果你希望树莓派每次开机Telegraf都能启动就执行该语句</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> telegraf</span><br></pre></td></tr></table></figure></li>
-<li><p>最后的配置，三方协同<br>首先是Infludb，创建一个新的Bucket在LoadData中选择Telegraf，默认的inputs选择System即可</p>
+<li><p>最后的配置，三方协同<br>首先是Influxdb，创建一个新的Bucket在LoadData中选择Telegraf，默认的inputs选择System即可</p>
 <div align=center>
   <img src=/images/2023.11.17/221438.png />
 </div>
@@ -398,7 +398,7 @@
 </code></pre>
 </li>
 </ul>
-<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>读者可在自己开发的应用中使用InfluxDB Client&#x2F;API将数据存储到Infludb中进行系统监控与数据分析。以Java为例，比较典型的是利用Micrometer + InfluxDB + Grafana将服务器、JVM和Application度量指标进行监控分析。<br>整个配置过程笔者的步骤稍多，需细心，相信读者也能通过这篇文章少踩一些坑少走些弯路。</p>
+<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>读者可在自己开发的应用中使用InfluxDB Client&#x2F;API将数据存储到Influxdb中进行系统监控与数据分析。以Java为例，比较典型的是利用Micrometer + InfluxDB + Grafana将服务器、JVM和Application度量指标进行监控分析。<br>整个配置过程笔者的步骤稍多，需细心，相信读者也能通过这篇文章少踩一些坑少走些弯路。</p>
 
     </div>
 
@@ -420,11 +420,14 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/10/17/gift/" rel="prev" title="礼物">
+                <a href="/2023/10/17/0001/" rel="prev" title="礼物">
                   <i class="fa fa-angle-left"></i> 礼物
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2023/11/18/0003/" rel="next" title="4">
+                  4 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>

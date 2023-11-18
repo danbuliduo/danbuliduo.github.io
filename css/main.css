@@ -2890,6 +2890,7 @@ body {
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
+  color: #111;
 }
 .main-inner > .sub-menu,
 .main-inner > .post-block,
@@ -2897,9 +2898,6 @@ body {
 .main-inner > .comments,
 .main-inner > .pagination {
   background: rgba(245,245,245,0.502);
-}
-body {
-  color: #111;
 }
 .posts-expand .post-title-link {
   color: #000;
@@ -2914,9 +2912,5 @@ body {
   background: rgba(255,255,255,0.5);
 }
 .popup {
-  opacity: 0.8;
-}
-.main-inner {
-  background-color: rgba(255,255,255,0);
-  padding: 0px 40px 40px 40px;
+  opacity: 1;
 }

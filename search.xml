@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Blog 启动！</title>
+    <url>/2023/10/16/0000/</url>
+    <content><![CDATA[<p>🔸记录一个开始，这里什么也没有，往上翻翻吧！😉😉😉</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Telegraf + InfluxDB2 + Grafana 搭建可监控环境</title>
-    <url>/2023/11/17/2023-11-17-I/</url>
+    <url>/2023/11/17/0002/</url>
     <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>笔者将搭建一个 Telegraf + Influxdb + Grafana 可监控环境，通过这套工具组合，可以构建实时监控系统，实时分析和展示各种指标和数据，帮助用户更好地理解和管理系统的运行状态。</p>
 <ul>
 <li><strong>Telegraf</strong> 收集数据：开源的服务器代理程序，用于收集、处理和发送指标数据。</li>
@@ -57,7 +63,7 @@
   <div align=center>
     <img src=/images/2023.11.17/213004.png />
   </div>
-  笔者推测是模板中的Flux语句与安装的Influxdb版本有略微的差别，于是笔者重写了模板中的Flux语句，最后我们可以看到Infludb Bucket中的数据成功在Grafana中显示出来。
+  笔者推测是模板中的Flux语句与安装的Influxdb版本有略微的差别，于是笔者重写了模板中的Flux语句，最后我们可以看到Influxdb Bucket中的数据成功在Grafana中显示出来。
   <div align=center>
     <img src=/images/2023.11.17/211018.png />
   </div>
@@ -75,7 +81,7 @@
 
 <p>如果你希望树莓派每次开机Telegraf都能启动就执行该语句</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> telegraf</span><br></pre></td></tr></table></figure></li>
-<li><p>最后的配置，三方协同<br>首先是Infludb，创建一个新的Bucket在LoadData中选择Telegraf，默认的inputs选择System即可</p>
+<li><p>最后的配置，三方协同<br>首先是Influxdb，创建一个新的Bucket在LoadData中选择Telegraf，默认的inputs选择System即可</p>
 <div align=center>
   <img src=/images/2023.11.17/221438.png />
 </div>
@@ -108,7 +114,7 @@
 </code></pre>
 </li>
 </ul>
-<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>读者可在自己开发的应用中使用InfluxDB Client&#x2F;API将数据存储到Infludb中进行系统监控与数据分析。以Java为例，比较典型的是利用Micrometer + InfluxDB + Grafana将服务器、JVM和Application度量指标进行监控分析。<br>整个配置过程笔者的步骤稍多，需细心，相信读者也能通过这篇文章少踩一些坑少走些弯路。</p>
+<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>读者可在自己开发的应用中使用InfluxDB Client&#x2F;API将数据存储到Influxdb中进行系统监控与数据分析。以Java为例，比较典型的是利用Micrometer + InfluxDB + Grafana将服务器、JVM和Application度量指标进行监控分析。<br>整个配置过程笔者的步骤稍多，需细心，相信读者也能通过这篇文章少踩一些坑少走些弯路。</p>
 ]]></content>
       <categories>
         <category>环境搭建</category>
@@ -125,7 +131,7 @@
   </entry>
   <entry>
     <title>礼物</title>
-    <url>/2023/10/17/gift/</url>
+    <url>/2023/10/17/0001/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
   <script id="hbeData" type="hbeData" data-hmacdigest="b3ab1b57b437cf7daad039bf110120e989cce64adb555752407e0f2412853e9d">3e83d50de96ca2207a1aba1932db313a1b91373322dd25f3c27f364062631a34c8f40da60edcd32558c4f32607e8be22a081300a2d482a4da94066949fe4b6216c536697f20520762c35504531b69c84e884bd08493b15cee4c14a15ca63e2bf1648be51fa7e78ebdbdd591147d61399525b90900414ea06cf454dfd501d0f8a18b0e74a31850e31238d67ba29642a733154ef5e240872a66dd3c62c636e47c0d0eb4d9de7c734c17e39734dd4437eccf4fe674a664239ed6dc2dd61700760cd06941e239c43183123e087431f7d0abd697e900fe24485dd98a954ed4add69381cda0c786971e48e11615e8cff3c7aa1c8329769ac6df1597f3e2b4f76a2e680e8c29fa6183bcf6a8ea25006af0c9446df4d78698fa2909fd8db51ab7f428bf6314b0c415ae62db222a2edff49f4d28930e5120a1af2d4c7bd7135503cda50361e1c053fde83f081d63c2ac06cdc374fb043e5f994d51d0deac67e8432aac7ca027580bcfb7fd562fb6fd539cb61987a5e665d58bd85a9b2cead9e1dc259bd68e2fb0010131830acca50589a5c665942c89d9610eeb8201b191366dee13ca1ffd3baa8342879304bab75c00e491b2e8ea5302d227de1ef19d873e1c88d25a005</script>
   <div class="hbe hbe-content">
@@ -143,9 +149,8 @@
       </categories>
   </entry>
   <entry>
-    <title>Blog 启动！</title>
-    <url>/2023/10/16/start/</url>
-    <content><![CDATA[<p>🔸记录一个开始，这里什么也没有，往上翻翻吧！😉😉😉</p>
-]]></content>
+    <title>4</title>
+    <url>/2023/11/18/0003/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
