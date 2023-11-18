@@ -15,65 +15,71 @@
 <li><strong>Influxdb</strong> 存储数据：开源的时序数据库，专门用于存储和查询时间相关的数据，旨在为监控、分析和可视化应用程序提供高性能的数据存储解决方案。</li>
 <li><strong>Grafana</strong> 展示数据：开源的数据可视化和监控平台，用于实时监控、分析和可视化各种指标数据。它提供了丰富的图表、仪表盘和警报功能，使用户能够直观地理解和分析数据。</li>
 </ul>
+<div align=center>
+  <img src=/images/public/APM-Diagram-2.png />
+</div>
+
 <h1 id="二、环境"><a href="#二、环境" class="headerlink" title="二、环境"></a>二、环境</h1><ul>
 <li><p><strong>工作环境</strong></p>
-<p>硬件: 树莓派4B 8G&#x2F;64bit<br>系统: Ubuntu 22.04.3 LTS (GNU&#x2F;Linux 5.15.0-1042-raspi aarch64)<br>Docker: Standalone 20.10.24</p>
+<p><strong>硬件:</strong> 树莓派4B 8G&#x2F;64bit<br><strong>系统:</strong> Ubuntu 22.04.3 LTS (GNU&#x2F;Linux 5.15.0-1042-raspi aarch64)<br><strong>Docker:</strong> Standalone 20.10.24</p>
 </li>
 <li><p><strong>搭建环境</strong></p>
-<p>Telegraf: 1.21.4+ds1-0ubuntu2<br>Influxdb: 2.7.4<br>Grafana: 10.2.1-ubuntu</p>
+<p><strong>Telegraf:</strong> 1.21.4+ds1-0ubuntu2<br><strong>Influxdb:</strong> 2.7.4<br><strong>Grafana:</strong> 10.2.1-ubuntu</p>
 </li>
 </ul>
 <h1 id="三、正文"><a href="#三、正文" class="headerlink" title="三、正文"></a>三、正文</h1><ul>
-<li><p>在Docker中安装Influxdb：</p>
+<li><p><strong>在Docker中安装Influxdb</strong></p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull influxdb</span><br><span class="line"><span class="attribute">docker</span> run -d --name influxdb -p <span class="number">8086</span>:<span class="number">8086</span> influxdb</span><br></pre></td></tr></table></figure></li>
-<li><p>Influxdb预备工作<br>打开InfluxDB系统自带的仪表盘</p>
+<li><p><strong>Influxdb预备工作</strong><br>打开<a href="http://127.0.0.1:8086/">http://127.0.0.1:8086</a> 并点击InfluxDB系统自带的仪表盘</p>
 <div align=center>
-    <img src=/images/2023.11.17/203950.png />
-  </div>
-  点击看到系统的运行信息说明InfluxDB正在运行
-  <div align=center>
-     <img src=/images/2023.11.17/204100.png />
-  </div>
-  最后打开http://127.0.0.1:8086 进入InfluxDB管理面板并添加一个Token，也可使用初始化配置的Token。
-  <div align=center>
-   <img src=/images/2023.11.17/202719.png />
-  </div></li>
-<li><p>在Docker中安装Grafana：</p>
+  <img src=/images/2023.11.17/203950.png />
+</div>
+点击看到系统的运行信息说明InfluxDB正在运行
+<div align=center>
+  <img src=/images/2023.11.17/204100.png />
+</div>
+进入管理面板并添加一个Token，也可使用初始化配置的Token。
+<div align=center>
+  <img src=/images/2023.11.17/202719.png />
+</div></li>
+<li><p><strong>在Docker中安装Grafana</strong></p>
 <p>这里使用Grafana官方命令:</p>
 <div align=center>
   <img src=/images/2023.11.17/200401.png />
- </div>
-  <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -d --name=grafana -p <span class="number">3000</span>:<span class="number">3000</span> grafana/grafana-enterprise:<span class="number">10</span>.<span class="number">2</span>.<span class="number">1</span>-ubuntu</span><br></pre></td></tr></table></figure></li>
-<li><p>为Grafana配置并进行初步测试：<br>打开<a href="http://127.0.0.1:3000/">http://127.0.0.1:3000</a> 进入Grafana面板并选择 连接-&gt;数据源-&gt;添加数据源-&gt;Influxdb 配置一个数据源</p>
+</div>
+
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -d --name=grafana -p <span class="number">3000</span>:<span class="number">3000</span> grafana/grafana-enterprise:<span class="number">10</span>.<span class="number">2</span>.<span class="number">1</span>-ubuntu</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>为Grafana配置并进行初步测试</strong><br>打开<a href="http://127.0.0.1:3000/">http://127.0.0.1:3000</a> 进入Grafana面板并选择 连接-&gt;数据源-&gt;添加数据源-&gt;Influxdb 配置一个数据源</p>
 <div align=center>
-    <img src=/images/2023.11.17/201957.png />
-  </div>
-  配置信息及细节见下图
-  <div align=center>
-    <img src=/images/2023.11.17/204922.png />
-  </div>
-  <div align=center>
-    <img src=/images/2023.11.17/205752.png />
-  </div>
-  然后导入Grafana控制台模板，这里输入代码13315进行导入，在Grafana官网还有其他模板，感兴趣的读者可以自行了解
-  <div align=center>
-    <img src=/images/2023.11.17/212454.png />
-  </div>
-  但注意这里可能会有一个坑，笔者在第一次配置的时候发现Grafana数据无法正常显示。
-  <div align=center>
-    <img src=/images/2023.11.17/213004.png />
-  </div>
-  笔者推测是模板中的Flux语句与安装的Influxdb版本有略微的差别，于是笔者重写了模板中的Flux语句，最后我们可以看到Influxdb Bucket中的数据成功在Grafana中显示出来。
-  <div align=center>
-    <img src=/images/2023.11.17/211018.png />
-  </div>
-  笔者将修改后的模板的json文件放在这里提供读者下载，读者将json导入Grafana模板即可。</li>
+  <img src=/images/2023.11.17/201957.png />
+</div>
+配置信息及细节见下图
+<div align=center>
+  <img src=/images/2023.11.17/204922.png />
+</div>
+<div align=center>
+  <img src=/images/2023.11.17/205752.png />
+</div>
+然后导入Grafana控制台模板，这里输入代码：13315进行导入，在Grafana官网还有其他模板，感兴趣的读者可以自行了解
+<div align=center>
+  <img src=/images/2023.11.17/212454.png />
+</div>
+注意这里可能会出现问题，笔者在第一次配置的时候发现Grafana无法正常显示数据。
+<div align=center>
+  <img src=/images/2023.11.17/213004.png />
+</div>
+笔者推测是模板中的Flux语句与安装的Influxdb版本有略微的差别，于是笔者重写了模板中的Flux语句，最后我们可以看到Influxdb Bucket中的数据成功在Grafana中显示出来。
+<div align=center>
+  <img src=/images/2023.11.17/211018.png />
+</div>
+笔者将修改后的模板的json文件放在这里提供读者下载，读者将json导入Grafana模板即可。</li>
 </ul>
 <ul>
 <li><a href="/downloads/influxdb-2.0-oss-metrics.json">⬇️⬇️⬇️点击下载json文件</a></li>
 </ul>
 <ul>
-<li><p>在树莓派主机中安装Telegraf：</p>
+<li><p><strong>在树莓派主机中安装Telegraf</strong></p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> update &amp;&amp; sudo apt-<span class="built_in">get</span> install telegraf</span><br></pre></td></tr></table></figure>
 
 <p>Telegraf，启动！</p>
@@ -81,40 +87,41 @@
 
 <p>如果你希望树莓派每次开机Telegraf都能启动就执行该语句</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> telegraf</span><br></pre></td></tr></table></figure></li>
-<li><p>最后的配置，三方协同<br>首先是Influxdb，创建一个新的Bucket在LoadData中选择Telegraf，默认的inputs选择System即可</p>
+<li><p><strong>最后一步</strong><br>首先是Influxdb，创建一个新的Bucket在LoadData中选择Telegraf，默认的inputs选择System即可</p>
 <div align=center>
   <img src=/images/2023.11.17/221438.png />
 </div>
 将下列config复制到上图的标注处，这些会决定Telegraf会采集哪些类型的数据输入到Influxdb中
+
 <figure class="highlight lua"><table><tr><td class="code"><pre><span class="line"><span class="string">[[inputs.cpu]]</span></span><br><span class="line">percpu = <span class="literal">true</span></span><br><span class="line">totalcpu = <span class="literal">true</span></span><br><span class="line">collect_cpu_time = <span class="literal">false</span></span><br><span class="line">report_active = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="string">[[inputs.disk]]</span></span><br><span class="line">ignore_fs = [<span class="string">&quot;tmpfs&quot;</span>, <span class="string">&quot;devtmpfs&quot;</span>, <span class="string">&quot;devfs&quot;</span>, <span class="string">&quot;iso9660&quot;</span>, <span class="string">&quot;overlay&quot;</span>, <span class="string">&quot;aufs&quot;</span>, <span class="string">&quot;squashfs&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="string">[[inputs.diskio]]</span></span><br><span class="line"></span><br><span class="line"><span class="string">[[inputs.kernel]]</span></span><br><span class="line"></span><br><span class="line"><span class="string">[[inputs.mem]]</span></span><br><span class="line"></span><br><span class="line"><span class="string">[[inputs.processes]]</span></span><br><span class="line"></span><br><span class="line"><span class="string">[[inputs.swap]]</span></span><br><span class="line"></span><br><span class="line"><span class="string">[[inputs.system]]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-在前面以及完成了Telegraf然后这里Influxdb告诉我们只需完成2.和3.即可将Telegraf link起来
+
+<p>在前面以及完成了Telegraf然后这里Influxdb告诉我们只需完成2.和3.即可将Telegraf link起来</p>
 <div align=center>
   <img src=/images/2023.11.17/222122.png />
 </div>
 接下来在树莓派终端追加Telegraf 配置，编辑telegraf.conf
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">nano <span class="regexp">/etc/</span>telegraf/telegraf.conf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-追加以下内容并保存
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="section">[[outputs.influxdb_v2]]</span></span><br><span class="line"><span class="attr">urls</span> = [<span class="string">&quot;http://127.0.0.1:8086&quot;</span>]</span><br><span class="line"><span class="attr">token</span> = <span class="string">&quot;$INFLUX_TOKEN&quot;</span></span><br><span class="line"><span class="attr">organization</span> = <span class="string">&quot;你的Organization&quot;</span></span><br><span class="line"><span class="attr">bucket</span> = <span class="string">&quot;你的Bucket&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-接着完成Influxdb刚刚提示你的第二步，在树莓派中输入指令(<INFLUX_TOKEN> 见influxdb提示)
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="attribute">INFLUX_TOKEN</span>=&lt;INFLUX_TOKEN&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-接着完成Influxdb刚刚提示你的第三步，在树莓派中输入指令(<URI> 见influxdb提示，追加--debug会将调试日志输出到控制台)
-<figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">telegraf --config `&lt;URI&gt;` --debug</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-随后在控制台观察有以下日志输出说明配置成功了
-<figure class="highlight prolog"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! <span class="symbol">Starting</span> <span class="symbol">Telegraf</span> <span class="number">1.21</span><span class="number">.4</span>+ds1<span class="number">-0</span>ubuntu2</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! <span class="symbol">Loaded</span> inputs: cpu disk diskio kernel mem processes swap system</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! <span class="symbol">Loaded</span> aggregators:</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! <span class="symbol">Loaded</span> processors:</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! <span class="symbol">Loaded</span> outputs: influxdb_v2</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! <span class="symbol">Tags</span> enabled: host=raspberry</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! [agent] <span class="symbol">Config</span>: <span class="symbol">Interval</span>:<span class="number">10</span>s, <span class="symbol">Quiet</span>:false, <span class="symbol">Hostname</span>:<span class="string">&quot;raspberry&quot;</span>, <span class="symbol">Flush</span> <span class="symbol">Interval</span>:<span class="number">10</span>s</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">D</span>! [agent] <span class="symbol">Initializing</span> plugins</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">D</span>! [agent] <span class="symbol">Connecting</span> outputs</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">D</span>! [agent] <span class="symbol">Attempting</span> connection to [outputs.influxdb_v2]</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">D</span>! [agent] <span class="symbol">Successfully</span> connected to outputs.influxdb_v2</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">D</span>! [agent] <span class="symbol">Starting</span> service inputs</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">40</span><span class="symbol">Z</span> <span class="symbol">D</span>! [inputs.disk] [<span class="symbol">SystemPS</span>] partition <span class="number">0</span>: &#123;<span class="string">&quot;device&quot;</span>:<span class="string">&quot;sysfs&quot;</span>,<span class="string">&quot;mountpoint&quot;</span>:<span class="string">&quot;/sys&quot;</span>,<span class="string">&quot;fstype&quot;</span>:<span class="string">&quot;sysfs&quot;</span>,<span class="string">&quot;opts&quot;</span>:[<span class="string">&quot;rw&quot;</span>,<span class="string">&quot;nosuid&quot;</span>,<span class="string">&quot;nodev&quot;</span>,<span class="string">&quot;noexec&quot;</span>,<span class="string">&quot;relatime&quot;</span>]&#125;</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">40</span><span class="symbol">Z</span> <span class="symbol">D</span>! [inputs.disk] [<span class="symbol">SystemPS</span>] -&gt; using mountpoint <span class="string">&quot;/sys&quot;</span>...</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">40</span><span class="symbol">Z</span> <span class="symbol">D</span>! [inputs.disk] [<span class="symbol">SystemPS</span>] =&gt; kept...</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">40</span><span class="symbol">Z</span> <span class="symbol">D</span>! [inputs.disk] [<span class="symbol">SystemPS</span>] partition <span class="number">1</span>: &#123;<span class="string">&quot;device&quot;</span>:<span class="string">&quot;proc&quot;</span>,<span class="string">&quot;mountpoint&quot;</span>:<span class="string">&quot;/proc&quot;</span>,<span class="string">&quot;fstype&quot;</span>:<span class="string">&quot;proc&quot;</span>,<span class="string">&quot;opts&quot;</span>:[<span class="string">&quot;rw&quot;</span>,<span class="string">&quot;nosuid&quot;</span>,<span class="string">&quot;nodev&quot;</span>,<span class="string">&quot;noexec&quot;</span>,<span class="string">&quot;relatime&quot;</span>]&#125;</span><br><span class="line">......</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-接着我们在Grafana添加一个以Telegraf Bucket的新数据源，然后在Grafana中导入代码为14126的Telegraf模板，读者可温习前面的配置步骤。最后面板数据成功展示在Grafana中，大功告成，收工！
+
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">nano <span class="regexp">/etc/</span>telegraf/telegraf.conf</span><br></pre></td></tr></table></figure>
+
+<p>追加以下内容并保存</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[[outputs.influxdb_v2]]</span></span><br><span class="line"><span class="attr">urls</span> = [<span class="string">&quot;http://127.0.0.1:8086&quot;</span>]</span><br><span class="line"><span class="attr">token</span> = <span class="string">&quot;$INFLUX_TOKEN&quot;</span></span><br><span class="line"><span class="attr">organization</span> = <span class="string">&quot;你的Organization&quot;</span></span><br><span class="line"><span class="attr">bucket</span> = <span class="string">&quot;你的Bucket&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>接着完成Influxdb刚刚提示你的第二步，在树莓派中输入指令(<INFLUX_TOKEN> 见influxdb提示)</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> <span class="attribute">INFLUX_TOKEN</span>=&lt;INFLUX_TOKEN&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接着完成Influxdb刚刚提示你的第三步，在树莓派中输入指令(<URI> 见influxdb提示，追加–debug会将调试日志输出到控制台)</p>
+<figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">telegraf --config `&lt;URI&gt;` --debug</span><br></pre></td></tr></table></figure>
+
+<p>随后在控制台观察有以下日志输出说明配置成功了</p>
+<figure class="highlight prolog"><table><tr><td class="code"><pre><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! <span class="symbol">Starting</span> <span class="symbol">Telegraf</span> <span class="number">1.21</span><span class="number">.4</span>+ds1<span class="number">-0</span>ubuntu2</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! <span class="symbol">Loaded</span> inputs: cpu disk diskio kernel mem processes swap system</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! <span class="symbol">Loaded</span> aggregators:</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! <span class="symbol">Loaded</span> processors:</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! <span class="symbol">Loaded</span> outputs: influxdb_v2</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! <span class="symbol">Tags</span> enabled: host=raspberry</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">I</span>! [agent] <span class="symbol">Config</span>: <span class="symbol">Interval</span>:<span class="number">10</span>s, <span class="symbol">Quiet</span>:false, <span class="symbol">Hostname</span>:<span class="string">&quot;raspberry&quot;</span>, <span class="symbol">Flush</span> <span class="symbol">Interval</span>:<span class="number">10</span>s</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">D</span>! [agent] <span class="symbol">Initializing</span> plugins</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">D</span>! [agent] <span class="symbol">Connecting</span> outputs</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">D</span>! [agent] <span class="symbol">Attempting</span> connection to [outputs.influxdb_v2]</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">D</span>! [agent] <span class="symbol">Successfully</span> connected to outputs.influxdb_v2</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">32</span><span class="symbol">Z</span> <span class="symbol">D</span>! [agent] <span class="symbol">Starting</span> service inputs</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">40</span><span class="symbol">Z</span> <span class="symbol">D</span>! [inputs.disk] [<span class="symbol">SystemPS</span>] partition <span class="number">0</span>: &#123;<span class="string">&quot;device&quot;</span>:<span class="string">&quot;sysfs&quot;</span>,<span class="string">&quot;mountpoint&quot;</span>:<span class="string">&quot;/sys&quot;</span>,<span class="string">&quot;fstype&quot;</span>:<span class="string">&quot;sysfs&quot;</span>,<span class="string">&quot;opts&quot;</span>:[<span class="string">&quot;rw&quot;</span>,<span class="string">&quot;nosuid&quot;</span>,<span class="string">&quot;nodev&quot;</span>,<span class="string">&quot;noexec&quot;</span>,<span class="string">&quot;relatime&quot;</span>]&#125;</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">40</span><span class="symbol">Z</span> <span class="symbol">D</span>! [inputs.disk] [<span class="symbol">SystemPS</span>] -&gt; using mountpoint <span class="string">&quot;/sys&quot;</span>...</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">40</span><span class="symbol">Z</span> <span class="symbol">D</span>! [inputs.disk] [<span class="symbol">SystemPS</span>] =&gt; kept...</span><br><span class="line"><span class="number">2023</span><span class="number">-11</span><span class="number">-17</span><span class="symbol">T15</span>:<span class="number">00</span>:<span class="number">40</span><span class="symbol">Z</span> <span class="symbol">D</span>! [inputs.disk] [<span class="symbol">SystemPS</span>] partition <span class="number">1</span>: &#123;<span class="string">&quot;device&quot;</span>:<span class="string">&quot;proc&quot;</span>,<span class="string">&quot;mountpoint&quot;</span>:<span class="string">&quot;/proc&quot;</span>,<span class="string">&quot;fstype&quot;</span>:<span class="string">&quot;proc&quot;</span>,<span class="string">&quot;opts&quot;</span>:[<span class="string">&quot;rw&quot;</span>,<span class="string">&quot;nosuid&quot;</span>,<span class="string">&quot;nodev&quot;</span>,<span class="string">&quot;noexec&quot;</span>,<span class="string">&quot;relatime&quot;</span>]&#125;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>接着我们在Grafana添加一个以Telegraf Bucket的新数据源，然后在Grafana中导入代码为14126的Telegraf模板，读者可温习前面的配置步骤。最后面板数据成功展示在Grafana中，大功告成，收工！</p>
 <div align=center>
   <img src=/images/2023.11.17/231039.png />
-</div>
-
-
-
-
-
-<pre><code>
-</code></pre>
-</li>
+</div></li>
 </ul>
-<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>读者可在自己开发的应用中使用InfluxDB Client&#x2F;API将数据存储到Influxdb中进行系统监控与数据分析。以Java为例，比较典型的是利用Micrometer + InfluxDB + Grafana将服务器、JVM和Application度量指标进行监控分析。<br>整个配置过程笔者的步骤稍多，需细心，相信读者也能通过这篇文章少踩一些坑少走些弯路。</p>
+<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>读者可在自己开发的应用中使用InfluxDB Client&#x2F;API将数据存储到Influxdb中进行系统监控与数据分析。以Java为例，比较典型的是利用Micrometer + InfluxDB + Grafana将服务器、JVM和Application度量指标进行监控分析。</p>
+<p>整个配置过程笔者的步骤稍多，需细心，相信读者也能通过这篇文章少踩一些坑少走些弯路。</p>
 ]]></content>
       <categories>
         <category>环境搭建</category>
@@ -133,7 +140,7 @@
     <title>礼物</title>
     <url>/2023/10/17/0001/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="b3ab1b57b437cf7daad039bf110120e989cce64adb555752407e0f2412853e9d">3e83d50de96ca2207a1aba1932db313a1b91373322dd25f3c27f364062631a34c8f40da60edcd32558c4f32607e8be22a081300a2d482a4da94066949fe4b6216c536697f20520762c35504531b69c84e884bd08493b15cee4c14a15ca63e2bf1648be51fa7e78ebdbdd591147d61399525b90900414ea06cf454dfd501d0f8a18b0e74a31850e31238d67ba29642a733154ef5e240872a66dd3c62c636e47c0d0eb4d9de7c734c17e39734dd4437eccf4fe674a664239ed6dc2dd61700760cd06941e239c43183123e087431f7d0abd697e900fe24485dd98a954ed4add69381cda0c786971e48e11615e8cff3c7aa1c8329769ac6df1597f3e2b4f76a2e680e8c29fa6183bcf6a8ea25006af0c9446df4d78698fa2909fd8db51ab7f428bf6314b0c415ae62db222a2edff49f4d28930e5120a1af2d4c7bd7135503cda50361e1c053fde83f081d63c2ac06cdc374fb043e5f994d51d0deac67e8432aac7ca027580bcfb7fd562fb6fd539cb61987a5e665d58bd85a9b2cead9e1dc259bd68e2fb0010131830acca50589a5c665942c89d9610eeb8201b191366dee13ca1ffd3baa8342879304bab75c00e491b2e8ea5302d227de1ef19d873e1c88d25a005</script>
+  <script id="hbeData" type="hbeData" data-hmacdigest="ffc65383f44b0b01a671139ce2102223c89e3a8724d3e38eede81d375b70318b">3e83d50de96ca2207a1aba1932db313a1b91373322dd25f3c27f364062631a34c8f40da60edcd32558c4f32607e8be22a081300a2d482a4da94066949fe4b6216c536697f20520762c35504531b69c84e884bd08493b15cee4c14a15ca63e2bf1648be51fa7e78ebdbdd591147d61399525b90900414ea06cf454dfd501d0f8a18b0e74a31850e31238d67ba29642a733154ef5e240872a66dd3c62c636e47c0d0eb4d9de7c734c17e39734dd4437eccf4fe674a664239ed6dc2dd61700760cd06941e239c43183123e087431f7d0abd697e900fe24485dd98a954ed4add69381cda0c786971e48e11615e8cff3c7aa1c8329769ac6df1597f3e2b4f76a2e680e8c29fa6183bcf6a8ea25006af0c9446df4d78698fa2909fd8db51ab7f428bf6314b0c415ae62db222a2edff49f4d28930e5120a1af2d4c7bd7135503cda50361e1c053fde83f081d63c2ac06cdc374fcf9dcac6ddd8727d3865e121d1f754e90207fc9f7c88038f62c6b8cba6808afcc00e6f37ae83f9789bbb376e11a121fd9aa8d7d062287faf0e35c497b40781e858a57c9ef611c24996d25465e3b3b6e0f7322c516e013c1fa916b24472902a8e6f750affa3431374d6f384151df82d97c366cb8442fd09e281afd01648d8b231</script>
   <div class="hbe hbe-content">
     <div class="hbe hbe-input hbe-input-default">
       <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
@@ -149,8 +156,82 @@
       </categories>
   </entry>
   <entry>
-    <title>4</title>
+    <title>Infludb Flux指南</title>
     <url>/2023/11/18/0003/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="开始使用Flux"><a href="#开始使用Flux" class="headerlink" title="开始使用Flux"></a>开始使用Flux</h1><h2 id="查询InfluxDB"><a href="#查询InfluxDB" class="headerlink" title="查询InfluxDB"></a>查询InfluxDB</h2><p>本指南将介绍使用 Flux 从 InfluxDB 查询数据的基础知识。 每个 Flux 查询都需要以下内容：</p>
+<ol>
+<li>数据源</li>
+<li>时间范围</li>
+<li>数据筛选器</li>
+</ol>
+<h3 id="定义数据源"><a href="#定义数据源" class="headerlink" title="定义数据源"></a>定义数据源</h3><p>Flux的<a href="https://docs.influxdata.com/flux/v0/stdlib/influxdata/influxdb/from/"><code>from()</code></a>函数定义一个 InfluxDB 数据源。 它需要一个<a href="https://docs.influxdata.com/flux/v0/stdlib/influxdata/influxdb/from/#bucket"><code>bucket</code></a>参数。 以下示例用作存储桶名称。example-bucket</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>:<span class="string">&quot;example-bucket&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="指定时间范围"><a href="#指定时间范围" class="headerlink" title="指定时间范围"></a>指定时间范围</h3><p>Flux 在查询时序数据时需要时间范围。“无界”查询非常耗费资源，作为一种保护措施， 如果没有指定范围，Flux 不会查询数据库。</p>
+<p>使用管道向前运算符(|&gt;)将数据从数据源管道传输到<a href="https://docs.influxdata.com/flux/v0/stdlib/universe/range"><code>range()</code></a>中，后者指定查询的时间范围。它接受两个参数：启动和停止。开始值和停止值可以是使用负持续时间的相对值，也可以是使用时间戳的绝对值。</p>
+<p><strong>示例相对时间范围</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Relative time range with start only. Stop defaults to now.</span></span><br><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>:<span class="string">&quot;example-bucket&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">range</span>(<span class="attr">start</span>: -1h)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Relative time range with start and stop</span></span><br><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>:<span class="string">&quot;example-bucket&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">range</span>(<span class="attr">start</span>: -1h, <span class="attr">stop</span>: -10m)</span><br></pre></td></tr></table></figure>
+
+<p>相对范围是相对于“现在”的。</p>
+<p><strong>绝对时间范围示例</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>:<span class="string">&quot;example-bucket&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">range</span>(<span class="attr">start</span>: <span class="number">2021</span>-<span class="number">01</span>-01<span class="attr">T00</span>:<span class="number">00</span>:00Z, <span class="attr">stop</span>: <span class="number">2021</span>-<span class="number">01</span>-01<span class="attr">T12</span>:<span class="number">00</span>:00Z)</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用以下命令：</strong></p>
+<p>在本指南中，请使用相对时间范围 ，将查询结果限制为过去 15 分钟的数据：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>:<span class="string">&quot;example-bucket&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">range</span>(<span class="attr">start</span>: -15m)</span><br></pre></td></tr></table></figure>
+
+<h3 id="过滤数据"><a href="#过滤数据" class="headerlink" title="过滤数据"></a>过滤数据</h3><p>将范围内的数据传递到filter()中，以根据数据属性或列缩小结果。filter()有一个参数fn，它要求谓词函数按列值计算行。<br>filter()对每个输入行进行迭代，并将行数据构造为Flux记录。记录作为r传递到谓词函数中，在那里使用谓词表达式对其求值。</p>
+<p>计算结果为false的行将从输出数据中删除。计算结果为true的行将保留在输出数据中。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Pattern</span></span><br><span class="line">(r) =&gt; (r.<span class="property">recordProperty</span> comparisonOperator comparisonExpression)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Example with single filter</span></span><br><span class="line">(r) =&gt; (r.<span class="property">_measurement</span> == <span class="string">&quot;cpu&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Example with multiple filters</span></span><br><span class="line">(r) =&gt; (r.<span class="property">_measurement</span> == <span class="string">&quot;cpu&quot;</span> and r.<span class="property">_field</span> != <span class="string">&quot;usage_system&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用以下命令：</strong></p>
+<p>对于本例，根据cpu测量值、usage_system字段和cpu总标记值进行筛选：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>: <span class="string">&quot;example-bucket&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">range</span>(<span class="attr">start</span>: -15m)</span><br><span class="line">    |&gt; <span class="title function_">filter</span>(<span class="attr">fn</span>: <span class="function">(<span class="params">r</span>) =&gt;</span> r.<span class="property">_measurement</span> == <span class="string">&quot;cpu&quot;</span> and r.<span class="property">_field</span> == <span class="string">&quot;usage_system&quot;</span> and r.<span class="property">cpu</span> == <span class="string">&quot;cpu-total&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成查询的数据"><a href="#生成查询的数据" class="headerlink" title="生成查询的数据"></a>生成查询的数据</h3><p><a href="https://docs.influxdata.com/flux/v0/stdlib/universe/yield/"><code>yield()</code></a>输出查询结果。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>: <span class="string">&quot;example-bucket&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">range</span>(<span class="attr">start</span>: -15m)</span><br><span class="line">    |&gt; <span class="title function_">filter</span>(<span class="attr">fn</span>: <span class="function">(<span class="params">r</span>) =&gt;</span> r.<span class="property">_measurement</span> == <span class="string">&quot;cpu&quot;</span> and r.<span class="property">_field</span> == <span class="string">&quot;usage_system&quot;</span> and r.<span class="property">cpu</span> == <span class="string">&quot;cpu-total&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">yield</span>()</span><br></pre></td></tr></table></figure>
+
+<p>Flux在每个脚本的末尾自动采用yield()函数来输出和可视化数据。只有在同一Flux查询中包含多个查询时，才需要显式调用yield()。每一组返回的数据都需要使用yield()函数进行命名。</p>
+<h2 id="使用-Flux-转换数据"><a href="#使用-Flux-转换数据" class="headerlink" title="使用 Flux 转换数据"></a>使用 Flux 转换数据</h2><p>从 InfluxDB 查询数据时，通常需要以某种方式转换这些数据。 常见的示例包括聚合数据、缩减采样数据等。</p>
+<p>本指南演示如何使用Flux函数转换数据。它遍历创建一个Flux脚本，该脚本将数据划分为时间窗口，对每个窗口中的_values进行平均，并将平均值输出为一个新表。</p>
+<h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><p>使用前面的从 InfluxDB 查询数据指南中构建的查询，但更新范围以提取最后一小时的数据：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>: <span class="string">&quot;example-bucket&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">range</span>(<span class="attr">start</span>: -1h)</span><br><span class="line">    |&gt; <span class="title function_">filter</span>(<span class="attr">fn</span>: <span class="function">(<span class="params">r</span>) =&gt;</span> r.<span class="property">_measurement</span> == <span class="string">&quot;cpu&quot;</span> and r.<span class="property">_field</span> == <span class="string">&quot;usage_system&quot;</span> and r.<span class="property">cpu</span> == <span class="string">&quot;cpu-total&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="通量函数"><a href="#通量函数" class="headerlink" title="通量函数"></a>通量函数</h3><p>Flux提供了许多执行特定操作、转换和任务的函数。您还可以在Flux查询中创建自定义函数。Flux标准库文档中详细介绍了函数。<br>转换从InfluxDB查询的数据时使用的一种常见类型的函数是聚合函数。聚合函数获取表中的一组_values，聚合它们，并将它们转换为新值。</p>
+<p>本例使用<a href="https://docs.influxdata.com/flux/v0/stdlib/universe/mean"><code>mean()</code></a>函数对每个时间窗口内的值进行平均。</p>
+<p>下面的示例介绍了窗口化和聚合数据所需的步骤，但有一个<a href="https://docs.influxdata.com/influxdb/v2/query-data/get-started/transform-data/#helper-functions"><code>aggregateWindow()</code></a>辅助函数可以帮您完成这项工作。了解这个过程中的步骤是很好的。</p>
+<h3 id="查看数据窗口"><a href="#查看数据窗口" class="headerlink" title="查看数据窗口"></a>查看数据窗口</h3><p>Flux的<a href="https://docs.influxdata.com/flux/v0/stdlib/universe/window"><code>window()</code></a>函数根据时间值对记录进行分区。使用every参数可以定义每个窗口的持续时间。</p>
+<p><strong>日历月和年</strong></p>
+<p>日历月份和年份<br>every支持所有有效的持续时间单位，包括日历月(1mo)和年(1y)。</p>
+<p>对于本例，窗口数据的间隔为5分钟(5m)。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>: <span class="string">&quot;example-bucket&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">range</span>(<span class="attr">start</span>: -1h)</span><br><span class="line">    |&gt; <span class="title function_">filter</span>(<span class="attr">fn</span>: <span class="function">(<span class="params">r</span>) =&gt;</span> r.<span class="property">_measurement</span> == <span class="string">&quot;cpu&quot;</span> and r.<span class="property">_field</span> == <span class="string">&quot;usage_system&quot;</span> and r.<span class="property">cpu</span> == <span class="string">&quot;cpu-total&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">window</span>(<span class="attr">every</span>: 5m)</span><br></pre></td></tr></table></figure>
+
+<p>当数据被收集到时间窗口中时，每个窗口都作为自己的表输出。当可视化时，每个表都被分配了一种唯一的颜色。</p>
+<p><img src="https://docs.influxdata.com/img/flux/windowed-data.png" alt="窗口化数据表"></p>
+<h3 id="聚合窗口化数据"><a href="#聚合窗口化数据" class="headerlink" title="聚合窗口化数据"></a>聚合窗口化数据</h3><p>Flux聚合函数获取每个表中的s，并以某种方式聚合它们。 使用 _value <a href="https://docs.influxdata.com/flux/v0/stdlib/universe/mean"><code>mean()</code></a>函数对每个表的s求平均值。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>: <span class="string">&quot;example-bucket&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">range</span>(<span class="attr">start</span>: -1h)</span><br><span class="line">    |&gt; <span class="title function_">filter</span>(<span class="attr">fn</span>: <span class="function">(<span class="params">r</span>) =&gt;</span> r.<span class="property">_measurement</span> == <span class="string">&quot;cpu&quot;</span> and r.<span class="property">_field</span> == <span class="string">&quot;usage_system&quot;</span> and r.<span class="property">cpu</span> == <span class="string">&quot;cpu-total&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">window</span>(<span class="attr">every</span>: 5m)</span><br><span class="line">    |&gt; <span class="title function_">mean</span>()</span><br></pre></td></tr></table></figure>
+
+<p>当每个窗口中的行被聚合时，它们的输出表只包含一个具有聚合值的行。窗口化的表仍然是独立的，当可视化时，它们将显示为单个的、不相连的点。</p>
+<p><img src="https://docs.influxdata.com/img/flux/windowed-aggregates.png" alt="窗口化聚合数据"></p>
+<h3 id="向聚合添加时间"><a href="#向聚合添加时间" class="headerlink" title="向聚合添加时间"></a>向聚合添加时间</h3><p>在聚合值时，生成的表没有_time列，因为用于聚合的记录都具有不同的时间戳。聚合函数不会推断聚合值应该使用的时间。因此，_time列被删除。</p>
+<p>在下一个操作中需要_time列。 要添加一个，请使用<a href="https://docs.influxdata.com/flux/v0/stdlib/universe/duplicate"><code>duplicate()</code></a>函数将_stop列复制为每个窗口表的_time列。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>: <span class="string">&quot;example-bucket&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">range</span>(<span class="attr">start</span>: -1h)</span><br><span class="line">    |&gt; <span class="title function_">filter</span>(<span class="attr">fn</span>: <span class="function">(<span class="params">r</span>) =&gt;</span> r.<span class="property">_measurement</span> == <span class="string">&quot;cpu&quot;</span> and r.<span class="property">_field</span> == <span class="string">&quot;usage_system&quot;</span> and r.<span class="property">cpu</span> == <span class="string">&quot;cpu-total&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">window</span>(<span class="attr">every</span>: 5m)</span><br><span class="line">    |&gt; <span class="title function_">mean</span>()</span><br><span class="line">    |&gt; <span class="title function_">duplicate</span>(<span class="attr">column</span>: <span class="string">&quot;_stop&quot;</span>, <span class="attr">as</span>: <span class="string">&quot;_time&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="取消窗口聚合表"><a href="#取消窗口聚合表" class="headerlink" title="取消窗口聚合表"></a>取消窗口聚合表</h3><p>将window()函数与every:inf参数一起使用，可以将所有点聚集到一个单一的无限窗口中。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>: <span class="string">&quot;example-bucket&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">range</span>(<span class="attr">start</span>: -1h)</span><br><span class="line">    |&gt; <span class="title function_">filter</span>(<span class="attr">fn</span>: <span class="function">(<span class="params">r</span>) =&gt;</span> r.<span class="property">_measurement</span> == <span class="string">&quot;cpu&quot;</span> and r.<span class="property">_field</span> == <span class="string">&quot;usage_system&quot;</span> and r.<span class="property">cpu</span> == <span class="string">&quot;cpu-total&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">window</span>(<span class="attr">every</span>: 5m)</span><br><span class="line">    |&gt; <span class="title function_">mean</span>()</span><br><span class="line">    |&gt; <span class="title function_">duplicate</span>(<span class="attr">column</span>: <span class="string">&quot;_stop&quot;</span>, <span class="attr">as</span>: <span class="string">&quot;_time&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">window</span>(<span class="attr">every</span>: inf)</span><br></pre></td></tr></table></figure>
+
+<p>一旦取消分组并组合到一个表中，聚合数据点将在可视化中显示为连接的。</p>
+<p><img src="https://docs.influxdata.com/img/flux/windowed-aggregates-ungrouped.png" alt="未窗口聚合数据"></p>
+<h3 id="帮助程序函数"><a href="#帮助程序函数" class="headerlink" title="帮助程序函数"></a><strong>帮助程序函数</strong></h3><p>这似乎只是为了构建一个聚合数据的查询而进行的大量编码，然而，通过这个过程有助于了解数据在通过每个函数时是如何改变“形状”的。</p>
+<p>Flux提供(并允许您创建)”helper”函数，这些函数抽象了其中的许多步骤。本指南中执行的相同操作可以使用<a href="https://docs.influxdata.com/flux/v0/stdlib/universe/aggregatewindow"><code>aggregateWindow()</code></a>完成。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">from</span>(<span class="attr">bucket</span>: <span class="string">&quot;example-bucket&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">range</span>(<span class="attr">start</span>: -1h)</span><br><span class="line">    |&gt; <span class="title function_">filter</span>(<span class="attr">fn</span>: <span class="function">(<span class="params">r</span>) =&gt;</span> r.<span class="property">_measurement</span> == <span class="string">&quot;cpu&quot;</span> and r.<span class="property">_field</span> == <span class="string">&quot;usage_system&quot;</span> and r.<span class="property">cpu</span> == <span class="string">&quot;cpu-total&quot;</span>)</span><br><span class="line">    |&gt; <span class="title function_">aggregateWindow</span>(<span class="attr">every</span>: 5m, <span class="attr">fn</span>: mean)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>指南</category>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>Influxdb</tag>
+      </tags>
   </entry>
 </search>
