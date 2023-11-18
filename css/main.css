@@ -1819,7 +1819,7 @@ pre code {
   margin-left: 20px;
 }
 .posts-collapse .post-content .collection-header small {
-  color: #bbb;
+  color: #111;
   margin-left: 5px;
 }
 .posts-collapse .post-content .post-header {
@@ -2969,6 +2969,9 @@ body {
 }
 .post-block .post-title-link span {
   color: #333;
+}
+.collection-header small {
+  color: #111;
 }
 .post-block .post-meta a {
   color: #444;
