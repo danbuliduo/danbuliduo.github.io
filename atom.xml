@@ -6,7 +6,7 @@
   <link href="https://danbuliduo.github.io/atom.xml" rel="self"/>
   
   <link href="https://danbuliduo.github.io/"/>
-  <updated>2023-11-18T08:09:40.839Z</updated>
+  <updated>2023-11-21T11:14:34.337Z</updated>
   <id>https://danbuliduo.github.io/</id>
   
   <author>
@@ -15,6 +15,85 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CyberFlux 开发随笔</title>
+    <link href="https://danbuliduo.github.io/2023/11/21/0006/"/>
+    <id>https://danbuliduo.github.io/2023/11/21/0006/</id>
+    <published>2023-11-21T10:34:09.000Z</published>
+    <updated>2023-11-21T11:14:34.337Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;p&gt;今天笔者准备使用Vue &lt;code&gt;v-for&lt;/code&gt; 批量渲染一批 &lt;code&gt;&amp;lt;img :src=&amp;quot;item.logo&amp;quot;/&amp;gt;&lt;/code&gt; 标签的时候发现图片无法加载。记录一下vue动态渲染img的解决方案问题</summary>
+        
+      
+    
+    
+    
+    <category term="CyberFlux" scheme="https://danbuliduo.github.io/categories/CyberFlux/"/>
+    
+    <category term="开发日志" scheme="https://danbuliduo.github.io/categories/CyberFlux/%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/"/>
+    
+    
+    <category term="CyberFlux" scheme="https://danbuliduo.github.io/tags/CyberFlux/"/>
+    
+    <category term="Vue" scheme="https://danbuliduo.github.io/tags/Vue/"/>
+    
+    <category term="Vite" scheme="https://danbuliduo.github.io/tags/Vite/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CyberFlux 开发随笔</title>
+    <link href="https://danbuliduo.github.io/2023/11/20/0005/"/>
+    <id>https://danbuliduo.github.io/2023/11/20/0005/</id>
+    <published>2023-11-20T14:44:35.000Z</published>
+    <updated>2023-11-21T10:34:16.282Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天修改了CyberFlux Gateway登陆页面样式，在设计上模仿了Grafana的登陆页面。&lt;br&gt;&lt;strong&gt;先来展示&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Grafana登陆界面&lt;/p&gt;
+&lt;div align=center&gt;
+  &lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="CyberFlux" scheme="https://danbuliduo.github.io/categories/CyberFlux/"/>
+    
+    <category term="开发日志" scheme="https://danbuliduo.github.io/categories/CyberFlux/%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/"/>
+    
+    
+    <category term="CyberFlux" scheme="https://danbuliduo.github.io/tags/CyberFlux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>中间件合集</title>
+    <link href="https://danbuliduo.github.io/2023/11/19/0004/"/>
+    <id>https://danbuliduo.github.io/2023/11/19/0004/</id>
+    <published>2023-11-19T08:05:44.000Z</published>
+    <updated>2023-11-19T12:47:09.460Z</updated>
+    
+    
+    
+    
+    <category term="中间件" scheme="https://danbuliduo.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+    <category term="数据库" scheme="https://danbuliduo.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Infludb Flux指南</title>
@@ -48,14 +127,14 @@
     <link href="https://danbuliduo.github.io/2023/11/17/0002/"/>
     <id>https://danbuliduo.github.io/2023/11/17/0002/</id>
     <published>2023-11-17T06:09:50.000Z</published>
-    <updated>2023-11-18T07:19:03.154Z</updated>
+    <updated>2023-11-21T11:10:20.339Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot; title=&quot;一、前言&quot;&gt;&lt;/a&gt;一、前言&lt;/h1&gt;&lt;p&gt;笔者将搭建一个 Telegraf + Influxdb + Grafana</summary>
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;笔者将搭建一个 Telegraf + Influxdb + Grafana</summary>
         
       
     
@@ -85,7 +164,7 @@
     <link href="https://danbuliduo.github.io/2023/10/17/0001/"/>
     <id>https://danbuliduo.github.io/2023/10/17/0001/</id>
     <published>2023-10-17T13:47:23.000Z</published>
-    <updated>2023-11-18T06:14:49.110Z</updated>
+    <updated>2023-11-21T11:09:29.106Z</updated>
     
     
     <summary type="html">访问这篇Blog需要身份验证</summary>

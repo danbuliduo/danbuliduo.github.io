@@ -7,108 +7,81 @@
 ]]></content>
   </entry>
   <entry>
-    <title>礼物</title>
-    <url>/2023/10/17/0001/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="ffc65383f44b0b01a671139ce2102223c89e3a8724d3e38eede81d375b70318b">3e83d50de96ca2207a1aba1932db313a1b91373322dd25f3c27f364062631a34c8f40da60edcd32558c4f32607e8be22a081300a2d482a4da94066949fe4b6216c536697f20520762c35504531b69c84e884bd08493b15cee4c14a15ca63e2bf1648be51fa7e78ebdbdd591147d61399525b90900414ea06cf454dfd501d0f8a18b0e74a31850e31238d67ba29642a733154ef5e240872a66dd3c62c636e47c0d0eb4d9de7c734c17e39734dd4437eccf4fe674a664239ed6dc2dd61700760cd06941e239c43183123e087431f7d0abd697e900fe24485dd98a954ed4add69381cda0c786971e48e11615e8cff3c7aa1c8329769ac6df1597f3e2b4f76a2e680e8c29fa6183bcf6a8ea25006af0c9446df4d78698fa2909fd8db51ab7f428bf6314b0c415ae62db222a2edff49f4d28930e5120a1af2d4c7bd7135503cda50361e1c053fde83f081d63c2ac06cdc374fcf9dcac6ddd8727d3865e121d1f754e90207fc9f7c88038f62c6b8cba6808afcc00e6f37ae83f9789bbb376e11a121fd9aa8d7d062287faf0e35c497b40781e858a57c9ef611c24996d25465e3b3b6e0f7322c516e013c1fa916b24472902a8e6f750affa3431374d6f384151df82d97c366cb8442fd09e281afd01648d8b231</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入访问码</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>友人帐</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Telegraf + InfluxDB2 + Grafana 搭建可监控环境</title>
     <url>/2023/11/17/0002/</url>
-    <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>笔者将搭建一个 Telegraf + Influxdb + Grafana 可监控环境，通过这套工具组合，可以构建实时监控系统，实时分析和展示各种指标和数据，帮助用户更好地理解和管理系统的运行状态。</p>
-<ul>
-<li><strong>Telegraf</strong> 收集数据：开源的服务器代理程序，用于收集、处理和发送指标数据。</li>
-<li><strong>Influxdb</strong> 存储数据：开源的时序数据库，专门用于存储和查询时间相关的数据，旨在为监控、分析和可视化应用程序提供高性能的数据存储解决方案。</li>
-<li><strong>Grafana</strong> 展示数据：开源的数据可视化和监控平台，用于实时监控、分析和可视化各种指标数据。它提供了丰富的图表、仪表盘和警报功能，使用户能够直观地理解和分析数据。</li>
-</ul>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>笔者将搭建一个 Telegraf + Influxdb + Grafana 可监控环境，通过这套工具组合，可以构建实时监控系统，实时分析和展示各种指标和数据，帮助用户更好地理解和管理系统的运行状态。</p>
+<p><strong>Telegraf</strong> 收集数据：开源的服务器代理程序，用于收集、处理和发送指标数据。<br><strong>Influxdb</strong> 存储数据：开源的时序数据库，专门用于存储和查询时间相关的数据，旨在为监控、分析和可视化应用程序提供高性能的数据存储解决方案。<br><strong>Grafana</strong> 展示数据：开源的数据可视化和监控平台，用于实时监控、分析和可视化各种指标数据。它提供了丰富的图表、仪表盘和警报功能，使用户能够直观地理解和分析数据。</p>
 <div align=center>
   <img src=/images/public/APM-Diagram-2.png />
 </div>
 
-<h1 id="二、环境"><a href="#二、环境" class="headerlink" title="二、环境"></a>二、环境</h1><ul>
-<li><p><strong>工作环境</strong></p>
-<p><strong>硬件:</strong> 树莓派4B 8G&#x2F;64bit<br><strong>系统:</strong> Ubuntu 22.04.3 LTS (GNU&#x2F;Linux 5.15.0-1042-raspi aarch64)<br><strong>Docker:</strong> Standalone 20.10.24</p>
-</li>
-<li><p><strong>搭建环境</strong></p>
-<p><strong>Telegraf:</strong> 1.21.4+ds1-0ubuntu2<br><strong>Influxdb:</strong> 2.7.4<br><strong>Grafana:</strong> 10.2.1-ubuntu</p>
-</li>
-</ul>
-<h1 id="三、正文"><a href="#三、正文" class="headerlink" title="三、正文"></a>三、正文</h1><ul>
-<li><p><strong>在Docker中安装Influxdb</strong></p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull influxdb</span><br><span class="line"><span class="attribute">docker</span> run -d --name influxdb -p <span class="number">8086</span>:<span class="number">8086</span> influxdb</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>Influxdb预备工作</strong><br>打开<a href="http://127.0.0.1:8086/">http://127.0.0.1:8086</a> 并点击InfluxDB系统自带的仪表盘</p>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p><strong>工作环境</strong></p>
+<p><em><strong>硬件:</strong></em> 树莓派4B 8G&#x2F;64bit<br><em><strong>系统:</strong></em> Ubuntu 22.04.3 LTS (GNU&#x2F;Linux 5.15.0-1042-raspi aarch64)<br><em><strong>Docker:</strong></em> Standalone 20.10.24</p>
+<p><strong>搭建环境</strong></p>
+<p><em><strong>Telegraf:</strong></em> 1.21.4+ds1-0ubuntu2<br><em><strong>Influxdb:</strong></em> 2.7.4<br><em><strong>Grafana:</strong></em> 10.2.1-ubuntu</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p><strong>在Docker中安装Influxdb</strong></p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull influxdb</span><br><span class="line"><span class="attribute">docker</span> run -d --name influxdb -p <span class="number">8086</span>:<span class="number">8086</span> influxdb</span><br></pre></td></tr></table></figure>
+
+<p><strong>Influxdb预备工作</strong><br>打开<a href="http://127.0.0.1:8086/">http://127.0.0.1:8086</a> 并点击InfluxDB系统自带的仪表盘</p>
 <div align=center>
-  <img src=/images/2023.11.17/203950.png />
+  <img src=/images/2023/11/17/203950.png />
 </div>
 点击看到系统的运行信息说明InfluxDB正在运行
 <div align=center>
-  <img src=/images/2023.11.17/204100.png />
+  <img src=/images/2023/11/17/204100.png />
 </div>
 进入管理面板并添加一个Token，也可使用初始化配置的Token。
 <div align=center>
-  <img src=/images/2023.11.17/202719.png />
-</div></li>
-<li><p><strong>在Docker中安装Grafana</strong></p>
+  <img src=/images/2023/11/17/202719.png />
+</div>
+
+<p><strong>在Docker中安装Grafana</strong></p>
 <p>这里使用Grafana官方命令:</p>
 <div align=center>
-  <img src=/images/2023.11.17/200401.png />
+  <img src=/images/2023/11/17/200401.png />
 </div>
 
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -d --name=grafana -p <span class="number">3000</span>:<span class="number">3000</span> grafana/grafana-enterprise:<span class="number">10</span>.<span class="number">2</span>.<span class="number">1</span>-ubuntu</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>为Grafana配置并进行初步测试</strong><br>打开<a href="http://127.0.0.1:3000/">http://127.0.0.1:3000</a> 进入Grafana面板并选择 连接-&gt;数据源-&gt;添加数据源-&gt;Influxdb 配置一个数据源</p>
+
+<p><strong>为Grafana配置并进行初步测试</strong><br>打开<a href="http://127.0.0.1:3000/">http://127.0.0.1:3000</a> 进入Grafana面板并选择 连接-&gt;数据源-&gt;添加数据源-&gt;Influxdb 配置一个数据源</p>
 <div align=center>
-  <img src=/images/2023.11.17/201957.png />
+  <img src=/images/2023/11/17/201957.png />
 </div>
 配置信息及细节见下图
 <div align=center>
-  <img src=/images/2023.11.17/204922.png />
+  <img src=/images/2023/11/17/204922.png />
 </div>
 <div align=center>
-  <img src=/images/2023.11.17/205752.png />
+  <img src=/images/2023/11/17/205752.png />
 </div>
 然后导入Grafana控制台模板，这里输入代码：13315进行导入，在Grafana官网还有其他模板，感兴趣的读者可以自行了解
 <div align=center>
-  <img src=/images/2023.11.17/212454.png />
+  <img src=/images/2023/11/17/212454.png />
 </div>
 注意这里可能会出现问题，笔者在第一次配置的时候发现Grafana无法正常显示数据。
 <div align=center>
-  <img src=/images/2023.11.17/213004.png />
+  <img src=/images/2023/11/17/213004.png />
 </div>
 笔者推测是模板中的Flux语句与安装的Influxdb版本有略微的差别，于是笔者重写了模板中的Flux语句，最后我们可以看到Influxdb Bucket中的数据成功在Grafana中显示出来。
 <div align=center>
-  <img src=/images/2023.11.17/211018.png />
+  <img src=/images/2023/11/17/211018.png />
 </div>
-笔者将修改后的模板的json文件放在这里提供读者下载，读者将json导入Grafana模板即可。</li>
-</ul>
+笔者将修改后的模板的json文件放在这里提供读者下载，读者将json导入Grafana模板即可。
+
 <ul>
 <li><a href="/downloads/influxdb-2.0-oss-metrics.json">⬇️⬇️⬇️点击下载json文件</a></li>
 </ul>
-<ul>
-<li><p><strong>在树莓派主机中安装Telegraf</strong></p>
+<p><strong>在树莓派主机中安装Telegraf</strong></p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> update &amp;&amp; sudo apt-<span class="built_in">get</span> install telegraf</span><br></pre></td></tr></table></figure>
 
 <p>Telegraf，启动！</p>
 <figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="literal">start</span> telegraf</span><br></pre></td></tr></table></figure>
 
 <p>如果你希望树莓派每次开机Telegraf都能启动就执行该语句</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> telegraf</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>最后一步</strong><br>首先是Influxdb，创建一个新的Bucket在LoadData中选择Telegraf，默认的inputs选择System即可</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> telegraf</span><br></pre></td></tr></table></figure>
+<p><strong>最后一步</strong><br>首先是Influxdb，创建一个新的Bucket在LoadData中选择Telegraf，默认的inputs选择System即可</p>
 <div align=center>
-  <img src=/images/2023.11.17/221438.png />
+  <img src=/images/2023/11/17/221438.png />
 </div>
 将下列config复制到上图的标注处，这些会决定Telegraf会采集哪些类型的数据输入到Influxdb中
 
@@ -116,7 +89,7 @@
 
 <p>在前面以及完成了Telegraf然后这里Influxdb告诉我们只需完成2.和3.即可将Telegraf link起来</p>
 <div align=center>
-  <img src=/images/2023.11.17/222122.png />
+  <img src=/images/2023/11/17/222122.png />
 </div>
 接下来在树莓派终端追加Telegraf 配置，编辑telegraf.conf
 
@@ -136,10 +109,10 @@
 
 <p>接着我们在Grafana添加一个以Telegraf Bucket的新数据源，然后在Grafana中导入代码为14126的Telegraf模板，读者可温习前面的配置步骤。最后面板数据成功展示在Grafana中，大功告成，收工！</p>
 <div align=center>
-  <img src=/images/2023.11.17/231039.png />
-</div></li>
-</ul>
-<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>读者可在自己开发的应用中使用InfluxDB Client&#x2F;API将数据存储到Influxdb中进行系统监控与数据分析。以Java为例，比较典型的是利用Micrometer + InfluxDB + Grafana将服务器、JVM和Application度量指标进行监控分析。</p>
+  <img src=/images/2023/11/17/231039.png />
+</div>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>读者可在自己开发的应用中使用InfluxDB Client&#x2F;API将数据存储到Influxdb中进行系统监控与数据分析。以Java为例，比较典型的是利用Micrometer + InfluxDB + Grafana将服务器、JVM和Application度量指标进行监控分析。</p>
 <p>整个配置过程笔者的步骤稍多，需细心，相信读者也能通过这篇文章少踩一些坑少走些弯路。</p>
 ]]></content>
       <categories>
@@ -153,6 +126,68 @@
         <tag>Telegraf</tag>
         <tag>Influxdb</tag>
         <tag>Grafana</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>礼物</title>
+    <url>/2023/10/17/0001/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="5066b5301f4eefcf157c6d9f88d17f8d276426ff3f51863c072730cf7ea29c20">3e83d50de96ca2207a1aba1932db313a1b91373322dd25f3c27f364062631a34c8f40da60edcd32558c4f32607e8be22a081300a2d482a4da94066949fe4b6216c536697f20520762c35504531b69c84e884bd08493b15cee4c14a15ca63e2bf1648be51fa7e78ebdbdd591147d61399525b90900414ea06cf454dfd501d0f8a18b0e74a31850e31238d67ba29642a733154ef5e240872a66dd3c62c636e47c0d0eb4d9de7c734c17e39734dd4437eccf4fe674a664239ed6dc2dd61700760cd06941e239c43183123e087431f7d0abd697e900fe24485dd98a954ed4add69381cda0c786971e48e11615e8cff3c7aa1c8329769ac6df1597f3e2b4f76a2e680e8c29fa6183bcf6a8ea25006af0c9446df4d78698fa2909fd8db51ab7f428bf6314b0c415ae62db222a2edff49f4d28930e5120a1af2d4c7bd7135503cda50361e1c053fde83f081d63c2ac06cdc374fcf9dcac6ddd8727d3865e121d1f754e9f5a5afa4a47b1c9fecec799b79262a54a42d35f56ccc3baad5a9768a29df2f2886943410bca23547a31d443038f124948b490d7ef8084c492c6b4c01b51220af3d0febae0d404efe9f84b24d5690a19e7c377f217b80d29f6a1908badb1572ecdf7114399a25de79e907d434cf9b8a8a</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入访问码</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>友人帐</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>CyberFlux 开发随笔</title>
+    <url>/2023/11/20/0005/</url>
+    <content><![CDATA[<p>今天修改了CyberFlux Gateway登陆页面样式，在设计上模仿了Grafana的登陆页面。<br><strong>先来展示</strong></p>
+<p>Grafana登陆界面</p>
+<div align=center>
+  <img src=/images/2023/11/20/225444.png />
+</div>
+
+<p>CyberFlux Gatweay Login设计展示，配色以蓝绿色为主渐变，黑色背景卡片也凸显的恰到好处。</p>
+<div align=center>
+  <img src=/images/2023/11/20/225601.png />
+</div>
+
+<p>开发过程发现Grafana小太阳Logo居然是渐变色的，看着挺有感觉，笔者使用的Logo资源是SVG格式的。这里给出将SVG改为渐变色的技巧。</p>
+<ol>
+<li>创建渐变定义：首先，你需要在SVG的<code>&lt;defs&gt;</code>元素中创建一个渐变定义。<code>&lt;defs&gt;</code>元素用于定义可重用的元素，比如渐变、滤镜等。示例代码如下：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">defs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">linearGradient</span> <span class="attr">id</span>=<span class="string">&quot;myGradient&quot;</span> <span class="attr">x1</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;0%&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;red&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;blue&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">linearGradient</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">defs</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，我们创建了一个线性渐变（<code>&lt;linearGradient&gt;</code>）并给它一个唯一的ID（<code>myGradient</code>）。<code>x1</code>、<code>y1</code>、<code>x2</code>、<code>y2</code>属性定义了渐变的方向，这里我们使用水平方向的渐变。</p>
+<ol start="2">
+<li>应用渐变：接下来，你需要将渐变应用到具体的元素上。你可以使用<code>fill</code>属性或<code>stroke</code>属性来应用渐变。示例代码如下：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">defs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">linearGradient</span> <span class="attr">id</span>=<span class="string">&quot;myGradient&quot;</span> <span class="attr">x1</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;0%&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;red&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;blue&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">linearGradient</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">defs</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;50&quot;</span> <span class="attr">y</span>=<span class="string">&quot;50&quot;</span> <span class="attr">width</span>=<span class="string">&quot;200&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;url(#myGradient)&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，我们创建了一个矩形（<code>&lt;rect&gt;</code>）元素，并使用<code>fill</code>属性将渐变应用到矩形的填充上。<code>url(#myGradient)</code>表示引用了之前定义的渐变。</p>
+<ol start="3">
+<li>调整渐变方向和颜色：你可以通过调整渐变定义中的属性来改变渐变的方向和颜色。例如，你可以修改<code>x1</code>、<code>y1</code>、<code>x2</code>、<code>y2</code>属性来改变线性渐变的方向，修改<code>offset</code>和<code>stop-color</code>属性来改变渐变的颜色。示例代码如下：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">defs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">linearGradient</span> <span class="attr">id</span>=<span class="string">&quot;myGradient&quot;</span> <span class="attr">x1</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;100%&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;red&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;50%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;yellow&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;green&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">linearGradient</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">defs</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;50&quot;</span> <span class="attr">y</span>=<span class="string">&quot;50&quot;</span> <span class="attr">width</span>=<span class="string">&quot;200&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;url(#myGradient)&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，我们修改了渐变的方向为从左上角到右下角，并添加了一个黄色的中间颜色。</p>
+<p>这就是在SVG中设置渐变色的详细步骤。</p>
+]]></content>
+      <categories>
+        <category>CyberFlux</category>
+        <category>开发日志</category>
+      </categories>
+      <tags>
+        <tag>CyberFlux</tag>
       </tags>
   </entry>
   <entry>
@@ -233,5 +268,43 @@
       <tags>
         <tag>Influxdb</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>CyberFlux 开发随笔</title>
+    <url>/2023/11/21/0006/</url>
+    <content><![CDATA[<hr>
+<p>今天笔者准备使用Vue <code>v-for</code> 批量渲染一批 <code>&lt;img :src=&quot;item.logo&quot;/&gt;</code> 标签的时候发现图片无法加载。记录一下vue动态渲染img的解决方案问题 <code>(item.logo = &quot;@/assets/image/logo/xxx.svg&quot;)</code></p>
+<p><strong>问题排查</strong></p>
+<p>若使用 <code>&lt;img src=&quot;@/assets/image/logo/xxx.svg&quot;/&gt;</code> 标签是可用正常显示的</p>
+<p>笔者当时并没有思考出原因何在，于是查阅资料给出的解决方案是:</p>
+<p>使用 <code>require</code>包裹变量进行动态渲染</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">&quot;require(item.logo)&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>随后发生新的报错: <code>ReferenceError: require is not defined</code><br>初步判断这是因为 require 是属于 Webpack 的方法，而笔者使用的是Vite。</p>
+<p>笔者此时突然想到import x from ‘….’ 也可用导出图片变量, 于是尝试:</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">&lt;img :src=<span class="string">&quot;require(item.logo)&quot;</span>/&gt;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">&#x27;@/assets/image/logo/xxx.svg&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(logo)</span><br><span class="line"><span class="comment">//log: /src/assets/image/logo/xxx.svg</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>发现logo的值为string类型,仅仅是将<code>@</code> 替换为 <code>/src</code><br>于是更改列表中的路径前缀发现成功渲染!<br><strong>如图所示:</strong></p>
+<div align=center>
+  <img src=/images/2023/11/21/190247.png />
+</div>
+
+]]></content>
+      <categories>
+        <category>CyberFlux</category>
+        <category>开发日志</category>
+      </categories>
+      <tags>
+        <tag>CyberFlux</tag>
+        <tag>Vue</tag>
+        <tag>Vite</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>中间件合集</title>
+    <url>/2023/11/19/0004/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>中间件</category>
+        <category>数据库</category>
+      </categories>
   </entry>
 </search>

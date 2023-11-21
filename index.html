@@ -156,18 +156,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -196,6 +196,349 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://danbuliduo.github.io/2023/11/21/0006/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="蛋布利多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming Blog">
+      <meta itemprop="description" content="Hello World!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ming Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/11/21/0006/" class="post-title-link" itemprop="url">CyberFlux 开发随笔</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-11-21 18:34:09 / 修改时间：19:14:34" itemprop="dateCreated datePublished" datetime="2023-11-21T18:34:09+08:00">2023-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CyberFlux/" itemprop="url" rel="index"><span itemprop="name">CyberFlux</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CyberFlux/%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/" itemprop="url" rel="index"><span itemprop="name">开发日志</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>660</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <hr>
+<p>今天笔者准备使用Vue <code>v-for</code> 批量渲染一批 <code>&lt;img :src=&quot;item.logo&quot;/&gt;</code> 标签的时候发现图片无法加载。记录一下vue动态渲染img的解决方案问题 <code>(item.logo = &quot;@/assets/image/logo/xxx.svg&quot;)</code></p>
+<p><strong>问题排查</strong></p>
+<p>若使用 <code>&lt;img src=&quot;@/assets/image/logo/xxx.svg&quot;/&gt;</code> 标签是可用正常显示的</p>
+<p>笔者当时并没有思考出原因何在，于是查阅资料给出的解决方案是:</p>
+<p>使用 <code>require</code>包裹变量进行动态渲染</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">&quot;require(item.logo)&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>随后发生新的报错: <code>ReferenceError: require is not defined</code><br>初步判断这是因为 require 是属于 Webpack 的方法，而笔者使用的是Vite。</p>
+<p>笔者此时突然想到import x from ‘….’ 也可用导出图片变量, 于是尝试:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">&lt;img :src=<span class="string">&quot;require(item.logo)&quot;</span>/&gt;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">&#x27;@/assets/image/logo/xxx.svg&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(logo)</span><br><span class="line"><span class="comment">//log: /src/assets/image/logo/xxx.svg</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>发现logo的值为string类型,仅仅是将<code>@</code> 替换为 <code>/src</code><br>于是更改列表中的路径前缀发现成功渲染!<br><strong>如图所示:</strong></p>
+<div align=center>
+  <img src=/images/2023/11/21/190247.png />
+</div>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://danbuliduo.github.io/2023/11/20/0005/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="蛋布利多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming Blog">
+      <meta itemprop="description" content="Hello World!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ming Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/11/20/0005/" class="post-title-link" itemprop="url">CyberFlux 开发随笔</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-11-20 22:44:35" itemprop="dateCreated datePublished" datetime="2023-11-20T22:44:35+08:00">2023-11-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-11-21 18:34:16" itemprop="dateModified" datetime="2023-11-21T18:34:16+08:00">2023-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CyberFlux/" itemprop="url" rel="index"><span itemprop="name">CyberFlux</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CyberFlux/%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/" itemprop="url" rel="index"><span itemprop="name">开发日志</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>今天修改了CyberFlux Gateway登陆页面样式，在设计上模仿了Grafana的登陆页面。<br><strong>先来展示</strong></p>
+<p>Grafana登陆界面</p>
+<div align=center>
+  <img src=/images/2023/11/20/225444.png />
+</div>
+
+<p>CyberFlux Gatweay Login设计展示，配色以蓝绿色为主渐变，黑色背景卡片也凸显的恰到好处。</p>
+<div align=center>
+  <img src=/images/2023/11/20/225601.png />
+</div>
+
+<p>开发过程发现Grafana小太阳Logo居然是渐变色的，看着挺有感觉，笔者使用的Logo资源是SVG格式的。这里给出将SVG改为渐变色的技巧。</p>
+<ol>
+<li>创建渐变定义：首先，你需要在SVG的<code>&lt;defs&gt;</code>元素中创建一个渐变定义。<code>&lt;defs&gt;</code>元素用于定义可重用的元素，比如渐变、滤镜等。示例代码如下：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">defs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">linearGradient</span> <span class="attr">id</span>=<span class="string">&quot;myGradient&quot;</span> <span class="attr">x1</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;0%&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;red&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;blue&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">linearGradient</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">defs</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，我们创建了一个线性渐变（<code>&lt;linearGradient&gt;</code>）并给它一个唯一的ID（<code>myGradient</code>）。<code>x1</code>、<code>y1</code>、<code>x2</code>、<code>y2</code>属性定义了渐变的方向，这里我们使用水平方向的渐变。</p>
+<ol start="2">
+<li>应用渐变：接下来，你需要将渐变应用到具体的元素上。你可以使用<code>fill</code>属性或<code>stroke</code>属性来应用渐变。示例代码如下：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">defs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">linearGradient</span> <span class="attr">id</span>=<span class="string">&quot;myGradient&quot;</span> <span class="attr">x1</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;0%&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;red&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;blue&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">linearGradient</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">defs</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;50&quot;</span> <span class="attr">y</span>=<span class="string">&quot;50&quot;</span> <span class="attr">width</span>=<span class="string">&quot;200&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;url(#myGradient)&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，我们创建了一个矩形（<code>&lt;rect&gt;</code>）元素，并使用<code>fill</code>属性将渐变应用到矩形的填充上。<code>url(#myGradient)</code>表示引用了之前定义的渐变。</p>
+<ol start="3">
+<li>调整渐变方向和颜色：你可以通过调整渐变定义中的属性来改变渐变的方向和颜色。例如，你可以修改<code>x1</code>、<code>y1</code>、<code>x2</code>、<code>y2</code>属性来改变线性渐变的方向，修改<code>offset</code>和<code>stop-color</code>属性来改变渐变的颜色。示例代码如下：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">defs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">linearGradient</span> <span class="attr">id</span>=<span class="string">&quot;myGradient&quot;</span> <span class="attr">x1</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;100%&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;0%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;red&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;50%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;yellow&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">stop</span> <span class="attr">offset</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">stop-color</span>=<span class="string">&quot;green&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">linearGradient</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">defs</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;50&quot;</span> <span class="attr">y</span>=<span class="string">&quot;50&quot;</span> <span class="attr">width</span>=<span class="string">&quot;200&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;url(#myGradient)&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，我们修改了渐变的方向为从左上角到右下角，并添加了一个黄色的中间颜色。</p>
+<p>这就是在SVG中设置渐变色的详细步骤。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://danbuliduo.github.io/2023/11/19/0004/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="蛋布利多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming Blog">
+      <meta itemprop="description" content="Hello World!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Ming Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/11/19/0004/" class="post-title-link" itemprop="url">中间件合集</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-11-19 16:05:44 / 修改时间：20:47:09" itemprop="dateCreated datePublished" datetime="2023-11-19T16:05:44+08:00">2023-11-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>0</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -405,7 +748,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-18 15:19:03" itemprop="dateModified" datetime="2023-11-18T15:19:03+08:00">2023-11-18</time>
+      <time title="修改时间：2023-11-21 19:10:20" itemprop="dateModified" datetime="2023-11-21T19:10:20+08:00">2023-11-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -446,87 +789,79 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>笔者将搭建一个 Telegraf + Influxdb + Grafana 可监控环境，通过这套工具组合，可以构建实时监控系统，实时分析和展示各种指标和数据，帮助用户更好地理解和管理系统的运行状态。</p>
-<ul>
-<li><strong>Telegraf</strong> 收集数据：开源的服务器代理程序，用于收集、处理和发送指标数据。</li>
-<li><strong>Influxdb</strong> 存储数据：开源的时序数据库，专门用于存储和查询时间相关的数据，旨在为监控、分析和可视化应用程序提供高性能的数据存储解决方案。</li>
-<li><strong>Grafana</strong> 展示数据：开源的数据可视化和监控平台，用于实时监控、分析和可视化各种指标数据。它提供了丰富的图表、仪表盘和警报功能，使用户能够直观地理解和分析数据。</li>
-</ul>
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>笔者将搭建一个 Telegraf + Influxdb + Grafana 可监控环境，通过这套工具组合，可以构建实时监控系统，实时分析和展示各种指标和数据，帮助用户更好地理解和管理系统的运行状态。</p>
+<p><strong>Telegraf</strong> 收集数据：开源的服务器代理程序，用于收集、处理和发送指标数据。<br><strong>Influxdb</strong> 存储数据：开源的时序数据库，专门用于存储和查询时间相关的数据，旨在为监控、分析和可视化应用程序提供高性能的数据存储解决方案。<br><strong>Grafana</strong> 展示数据：开源的数据可视化和监控平台，用于实时监控、分析和可视化各种指标数据。它提供了丰富的图表、仪表盘和警报功能，使用户能够直观地理解和分析数据。</p>
 <div align=center>
   <img src=/images/public/APM-Diagram-2.png />
 </div>
 
-<h1 id="二、环境"><a href="#二、环境" class="headerlink" title="二、环境"></a>二、环境</h1><ul>
-<li><p><strong>工作环境</strong></p>
-<p><strong>硬件:</strong> 树莓派4B 8G&#x2F;64bit<br><strong>系统:</strong> Ubuntu 22.04.3 LTS (GNU&#x2F;Linux 5.15.0-1042-raspi aarch64)<br><strong>Docker:</strong> Standalone 20.10.24</p>
-</li>
-<li><p><strong>搭建环境</strong></p>
-<p><strong>Telegraf:</strong> 1.21.4+ds1-0ubuntu2<br><strong>Influxdb:</strong> 2.7.4<br><strong>Grafana:</strong> 10.2.1-ubuntu</p>
-</li>
-</ul>
-<h1 id="三、正文"><a href="#三、正文" class="headerlink" title="三、正文"></a>三、正文</h1><ul>
-<li><p><strong>在Docker中安装Influxdb</strong></p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull influxdb</span><br><span class="line"><span class="attribute">docker</span> run -d --name influxdb -p <span class="number">8086</span>:<span class="number">8086</span> influxdb</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>Influxdb预备工作</strong><br>打开<a target="_blank" rel="noopener" href="http://127.0.0.1:8086/">http://127.0.0.1:8086</a> 并点击InfluxDB系统自带的仪表盘</p>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p><strong>工作环境</strong></p>
+<p><em><strong>硬件:</strong></em> 树莓派4B 8G&#x2F;64bit<br><em><strong>系统:</strong></em> Ubuntu 22.04.3 LTS (GNU&#x2F;Linux 5.15.0-1042-raspi aarch64)<br><em><strong>Docker:</strong></em> Standalone 20.10.24</p>
+<p><strong>搭建环境</strong></p>
+<p><em><strong>Telegraf:</strong></em> 1.21.4+ds1-0ubuntu2<br><em><strong>Influxdb:</strong></em> 2.7.4<br><em><strong>Grafana:</strong></em> 10.2.1-ubuntu</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p><strong>在Docker中安装Influxdb</strong></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull influxdb</span><br><span class="line"><span class="attribute">docker</span> run -d --name influxdb -p <span class="number">8086</span>:<span class="number">8086</span> influxdb</span><br></pre></td></tr></table></figure>
+
+<p><strong>Influxdb预备工作</strong><br>打开<a target="_blank" rel="noopener" href="http://127.0.0.1:8086/">http://127.0.0.1:8086</a> 并点击InfluxDB系统自带的仪表盘</p>
 <div align=center>
-  <img src=/images/2023.11.17/203950.png />
+  <img src=/images/2023/11/17/203950.png />
 </div>
 点击看到系统的运行信息说明InfluxDB正在运行
 <div align=center>
-  <img src=/images/2023.11.17/204100.png />
+  <img src=/images/2023/11/17/204100.png />
 </div>
 进入管理面板并添加一个Token，也可使用初始化配置的Token。
 <div align=center>
-  <img src=/images/2023.11.17/202719.png />
-</div></li>
-<li><p><strong>在Docker中安装Grafana</strong></p>
+  <img src=/images/2023/11/17/202719.png />
+</div>
+
+<p><strong>在Docker中安装Grafana</strong></p>
 <p>这里使用Grafana官方命令:</p>
 <div align=center>
-  <img src=/images/2023.11.17/200401.png />
+  <img src=/images/2023/11/17/200401.png />
 </div>
 
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -d --name=grafana -p <span class="number">3000</span>:<span class="number">3000</span> grafana/grafana-enterprise:<span class="number">10</span>.<span class="number">2</span>.<span class="number">1</span>-ubuntu</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>为Grafana配置并进行初步测试</strong><br>打开<a target="_blank" rel="noopener" href="http://127.0.0.1:3000/">http://127.0.0.1:3000</a> 进入Grafana面板并选择 连接-&gt;数据源-&gt;添加数据源-&gt;Influxdb 配置一个数据源</p>
+
+<p><strong>为Grafana配置并进行初步测试</strong><br>打开<a target="_blank" rel="noopener" href="http://127.0.0.1:3000/">http://127.0.0.1:3000</a> 进入Grafana面板并选择 连接-&gt;数据源-&gt;添加数据源-&gt;Influxdb 配置一个数据源</p>
 <div align=center>
-  <img src=/images/2023.11.17/201957.png />
+  <img src=/images/2023/11/17/201957.png />
 </div>
 配置信息及细节见下图
 <div align=center>
-  <img src=/images/2023.11.17/204922.png />
+  <img src=/images/2023/11/17/204922.png />
 </div>
 <div align=center>
-  <img src=/images/2023.11.17/205752.png />
+  <img src=/images/2023/11/17/205752.png />
 </div>
 然后导入Grafana控制台模板，这里输入代码：13315进行导入，在Grafana官网还有其他模板，感兴趣的读者可以自行了解
 <div align=center>
-  <img src=/images/2023.11.17/212454.png />
+  <img src=/images/2023/11/17/212454.png />
 </div>
 注意这里可能会出现问题，笔者在第一次配置的时候发现Grafana无法正常显示数据。
 <div align=center>
-  <img src=/images/2023.11.17/213004.png />
+  <img src=/images/2023/11/17/213004.png />
 </div>
 笔者推测是模板中的Flux语句与安装的Influxdb版本有略微的差别，于是笔者重写了模板中的Flux语句，最后我们可以看到Influxdb Bucket中的数据成功在Grafana中显示出来。
 <div align=center>
-  <img src=/images/2023.11.17/211018.png />
+  <img src=/images/2023/11/17/211018.png />
 </div>
-笔者将修改后的模板的json文件放在这里提供读者下载，读者将json导入Grafana模板即可。</li>
-</ul>
+笔者将修改后的模板的json文件放在这里提供读者下载，读者将json导入Grafana模板即可。
+
 <ul>
 <li><a href="/downloads/influxdb-2.0-oss-metrics.json">⬇️⬇️⬇️点击下载json文件</a></li>
 </ul>
-<ul>
-<li><p><strong>在树莓派主机中安装Telegraf</strong></p>
+<p><strong>在树莓派主机中安装Telegraf</strong></p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> update &amp;&amp; sudo apt-<span class="built_in">get</span> install telegraf</span><br></pre></td></tr></table></figure>
 
 <p>Telegraf，启动！</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="literal">start</span> telegraf</span><br></pre></td></tr></table></figure>
 
 <p>如果你希望树莓派每次开机Telegraf都能启动就执行该语句</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> telegraf</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>最后一步</strong><br>首先是Influxdb，创建一个新的Bucket在LoadData中选择Telegraf，默认的inputs选择System即可</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> telegraf</span><br></pre></td></tr></table></figure>
+<p><strong>最后一步</strong><br>首先是Influxdb，创建一个新的Bucket在LoadData中选择Telegraf，默认的inputs选择System即可</p>
 <div align=center>
-  <img src=/images/2023.11.17/221438.png />
+  <img src=/images/2023/11/17/221438.png />
 </div>
 将下列config复制到上图的标注处，这些会决定Telegraf会采集哪些类型的数据输入到Influxdb中
 
@@ -534,7 +869,7 @@
 
 <p>在前面以及完成了Telegraf然后这里Influxdb告诉我们只需完成2.和3.即可将Telegraf link起来</p>
 <div align=center>
-  <img src=/images/2023.11.17/222122.png />
+  <img src=/images/2023/11/17/222122.png />
 </div>
 接下来在树莓派终端追加Telegraf 配置，编辑telegraf.conf
 
@@ -554,10 +889,10 @@
 
 <p>接着我们在Grafana添加一个以Telegraf Bucket的新数据源，然后在Grafana中导入代码为14126的Telegraf模板，读者可温习前面的配置步骤。最后面板数据成功展示在Grafana中，大功告成，收工！</p>
 <div align=center>
-  <img src=/images/2023.11.17/231039.png />
-</div></li>
-</ul>
-<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>读者可在自己开发的应用中使用InfluxDB Client&#x2F;API将数据存储到Influxdb中进行系统监控与数据分析。以Java为例，比较典型的是利用Micrometer + InfluxDB + Grafana将服务器、JVM和Application度量指标进行监控分析。</p>
+  <img src=/images/2023/11/17/231039.png />
+</div>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>读者可在自己开发的应用中使用InfluxDB Client&#x2F;API将数据存储到Influxdb中进行系统监控与数据分析。以Java为例，比较典型的是利用Micrometer + InfluxDB + Grafana将服务器、JVM和Application度量指标进行监控分析。</p>
 <p>整个配置过程笔者的步骤稍多，需细心，相信读者也能通过这篇文章少踩一些坑少走些弯路。</p>
 
       
@@ -621,7 +956,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-18 14:14:49" itemprop="dateModified" datetime="2023-11-18T14:14:49+08:00">2023-11-18</time>
+      <time title="修改时间：2023-11-21 19:09:29" itemprop="dateModified" datetime="2023-11-21T19:09:29+08:00">2023-11-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
